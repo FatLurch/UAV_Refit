@@ -1,0 +1,20 @@
+LRE “Say when ready return link”
+MCE “Ready RL”
+LRE “Say when ready for the aircraft”
+MCE “Ready for the aircraft”
+LRE “ Yours”
+
+MCE will command a turn and slew the pod around then change the polarity from whot to bhot or vice versa to denote control
+
+MCE “Ours”
+
+LRE “Have a good one. CYUH!!”
+
+
+
+
+MCE “ callsign, RTB at this time, (weapons left on board. Winchester if none) Code 1. (If there’s any damage you could say Code 3)
+
+Reaper 11, RTB at this time, 2x AGM-114 R9E, Code 1
+Reaper 11, RTB at this time, Winchester, Code 1
+As an example

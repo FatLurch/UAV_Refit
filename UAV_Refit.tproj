@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectRootNode Name="UAV_Refit" FileName="">
+    <SubNodes>
+      <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="functions" FileName="functions">
+        <SubNodes>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_loadUAV.sqf" FileName="functions\fnc_loadUAV.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_renderUI.sqf" FileName="functions\fnc_renderUI.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_renderUI_BU.sqf" FileName="functions\fnc_renderUI_BU.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_RTB.sqf" FileName="functions\fnc_RTB.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_uavReloader.sqf" FileName="functions\fnc_uavReloader.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_unloadUAV.sqf" FileName="functions\fnc_unloadUAV.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
+        </SubNodes>
+      </ProjectNodeViewModel>
+      <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="XEH_postInit.sqf" FileName="XEH_postInit.sqf">
+        <SubNodes />
+      </ProjectNodeViewModel>
+    </SubNodes>
+  </ProjectRootNode>
+  <FilteredAnalyzerResultItems>
+    <string>Private variable '_pos' is not declared.</string>
+    <string>Private variable '_wp' is not declared.</string>
+    <string>Expected numeric expression.</string>
+    <string>Syntax Error '0 step'.</string>
+    <string>Private variable '_time' is not declared.</string>
+  </FilteredAnalyzerResultItems>
+</Project>

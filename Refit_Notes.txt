@@ -1,0 +1,5 @@
+
+private _pylons = ["USAF_PylonRack_2Rnd_AGM114P","USAF_PylonRack_2Rnd_AGM114P","USAF_PylonRack_2Rnd_AGM114P","USAF_PylonRack_2Rnd_AGM114P"];	//output from getPylonMagazines _uav
+private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeOf uav3 >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+{ uav3 removeWeaponGlobal getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon") } forEach getPylonMagazines uav3;
+{ uav3 setPylonLoadout [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex] } forEach _pylons;
