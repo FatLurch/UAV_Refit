@@ -22,6 +22,9 @@
           <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="fnc_unloadUAV.sqf" FileName="functions\fnc_unloadUAV.sqf">
             <SubNodes />
           </ProjectNodeViewModel>
+          <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="getPylonAmmo.sqf" FileName="functions\getPylonAmmo.sqf">
+            <SubNodes />
+          </ProjectNodeViewModel>
         </SubNodes>
       </ProjectNodeViewModel>
       <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="XEH_postInit.sqf" FileName="XEH_postInit.sqf">

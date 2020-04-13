@@ -1,0 +1,180 @@
+
+//===== This successfully sends the name of each pylon to SystemChat
+{
+	_var = configname(configfile >> "CfgVehicles" >> "USAF_MQ9" >> "Components" >> "TransportPylonsComponent" >> "pylons" >> configname _x);
+	systemChat format["%1", _var];
+}forEach configProperties[configfile >> "CfgVehicles" >> "USAF_MQ9" >> "Components" >> "TransportPylonsComponent" >> "pylons"];
+
+
+
+
+
+
+//===== This successfully sends the name of each pylon and the ammo count to SystemChat
+{
+	_var = configname(configfile >> "CfgVehicles" >> "USAF_MQ9" >> "Components" >> "TransportPylonsComponent" >> "pylons" >> configname _x);
+	systemChat format["%1: %2", _var, uav ammoOnPylon _var];
+}forEach configProperties[configfile >> "CfgVehicles" >> "USAF_MQ9" >> "Components" >> "TransportPylonsComponent" >> "pylons"];
+
+
+
+//===== This successfully sends the name of each pylon and the ammo count and ammo name to SystemChat, plus saves stuff to arrays
+myMagazines = getPylonMagazines (uav);
+myIndex = 0;
+ammoNameArray = [];
+ammoCountArray = [];
+{
+	_var = configname(configfile >> "CfgVehicles" >> typeOf UAV >> "Components" >> "TransportPylonsComponent" >> "pylons" >> configname _x);
+	_ammo = uav ammoOnPylon _var;
+	_ammoName = getText(configfile >> "CfgMagazines" >> myMagazines select myIndex >> "displayNameShort");
+	systemChat format["%1: %2 %3", _var, _ammo, _ammoName];
+	myIndex = myIndex + 1;
+	ammoNameArray pushback _ammoName;
+	ammoCountArray pushback _ammo;
+}forEach configProperties[configfile >> "CfgVehicles" >> typeOf UAV >> "Components" >> "TransportPylonsComponent" >> "pylons"];
+systemChat format["names: %1", ammoNameArray];
+systemChat format["count %1", ammoCountArray];
+
+
+
+
+
+
+//===== This successfully sends the name of each pylon and the ammo count and ammo name to SystemChat, plus saves stuff to arrays
+myMagazines = getPylonMagazines (uav);
+ammoNameArray = [];
+ammoCountArray = [];
+{
+	_var = configname(configfile >> "CfgVehicles" >> typeOf uav >> "Components" >> "TransportPylonsComponent" >> "pylons" >> configname _x);
+	_ammo = uav ammoOnPylon _var;
+	_ammoName =  getText(configfile >> "CfgMagazines" >> myMagazines select _forEachIndex>> "displayNameShort");
+	//systemChat format["%1: %2 %3", _var, _ammo, _ammoName];
+	ammoNameArray pushback _ammoName;
+	ammoCountArray pushback _ammo;
+}forEach configProperties[configfile >> "CfgVehicles" >> typeOf UAV >> "Components" >> "TransportPylonsComponent" >> "pylons"];
+//systemChat format["names: %1", ammoNameArray];
+//systemChat format["count %1", ammoCountArray];
+
+
+finalNameArray = [];	
+finalAmmoArray = [];
+
+{
+	tmpName = _x;	//OK
+	//systemChat format["tmpName: %1", tmpName];
+	if (tmpName in finalNameArray) then
+	{
+	
+		//Iterate per entry in final array, if name matches, sum the ammo counts
+
+		{
+			if (tmpName == _x) then
+			{
+				_a = finalAmmoArray select _forEachIndex;
+				_b = ammoCountArray select _forEachIndex;		//SUSPECT
+				systemChat format["a: %1     b: %2     index:%3", _a, _b, _forEachIndex];
+				//_tmpTotal = ((finalAmmoArray select _forEachIndex) + (ammoCountArray select _forEachIndex));
+				_tmpTotal = _a + _b;
+				finalAmmoArray set [_forEachIndex, _tmpTotal];
+				//systemChat format["final %1 being added to Count %2     _tmpTotal: %3    index:%4", (finalAmmoArray select _forEachIndex),(ammoCountArray select _forEachIndex), _tmpTotal, _forEachIndex];
+			}
+		} forEach finalNameArray;
+	
+		
+	}
+	else
+	{
+		//Add new entry because it's not in the finall array
+		finalNameArray pushback (ammoNameArray select  _forEachIndex);
+		finalAmmoArray pushback (ammoCountArray select _forEachIndex);
+		systemChat format["pushback %1   %2 ",(ammoNameArray select  _forEachIndex), (ammoCountArray select _forEachIndex)];
+		
+	};
+	
+} foreach FinalNameArray;
+
+_output=[finalNameArray, finalAmmoArray];
+
+systemChat format["final names: %1   -   final count %2", finalNameArray, finalAmmoArray];
+//systemChat format["final count %1", finalAmmoArray];
+//systemChat format["final array %1", _output];
+
+_output;
+
+
+
+
+
+
+
+//##########################################################################
+
+myMagazines = getPylonMagazines (uav);
+ammoNameArray = [];
+ammoCountArray = [];
+
+//===== BUILD ARRAYS CONTAINING AMMO NAME & COUNT PER PYLON
+{
+	_var = configname(configfile >> "CfgVehicles" >> typeOf uav >> "Components" >> "TransportPylonsComponent" >> "pylons" >> configname _x);
+	_ammo = uav ammoOnPylon _var;
+	_ammoName =  getText(configfile >> "CfgMagazines" >> myMagazines select _forEachIndex>> "displayNameShort");
+	ammoNameArray pushback _ammoName;
+	ammoCountArray pushback _ammo;
+}forEach configProperties[configfile >> "CfgVehicles" >> typeOf UAV >> "Components" >> "TransportPylonsComponent" >> "pylons"];
+
+finalNameArray = [];	
+finalAmmoArray = [];
+
+//===== SUM THE AMMO COUNTS PER TYPE
+{
+	tmpName = _x;
+	rootIndex = _forEachIndex;
+
+	if(!(_x in finalNameArray)) then 
+	{	
+
+		finalNameArray pushback tmpName;
+		finalAmmoArray pushback (ammoCountArray select _forEachIndex);
+
+	}
+	else
+	{
+		{
+			if(tmpName == _X) then
+			{
+				finalAmmoArray set[_forEachIndex, (finalAmmoArray select _forEachIndex) + (ammoCountArray select rootIndex)];
+			};
+		}forEach finalNameArray;	
+	};
+}
+forEach ammoNameArray;
+
+//======== PREPARE FORMATTED STRING WITH PLYLON AMMO INFO
+_text = "";
+_tmpIndex = 0;
+
+{
+	_text = _text + str(finalAmmoArray select _tmpIndex) + "x " + (finalNameArray select _tmpIndex);
+	
+	if(count finalNameArray  > _tmpIndex+1) then 
+	{
+		_text = _text + ", ";
+	};
+	
+	_tmpIndex = _tmpIndex+1;
+} forEach finalNameArray;
+
+_totalAmmo = 0;
+{
+	_totalAmmo = _totalAmmo + _x;
+}forEach finalAmmoArray;
+
+//===== IF THERE ARE NO ROUNDS OF ANY TYPE, REPORT WINCHESTER
+if(_totalAmmo ==0) then {_text = "Winchester"};
+
+_output = [finalAmmoArray, finalNameArray, _text];
+
+_output;
+
+
+

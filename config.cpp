@@ -54,7 +54,10 @@ class CfgFunctions
 			{
 				file = "UAV_Refit\functions\fnc_loadUAV.sqf";			
 			};
-			
+			class getPylonAmmo
+			{
+				file = "UAV_Refit\functions\fnc_getPylonAmmo.sqf";			
+			};
 		};
 	};
 };

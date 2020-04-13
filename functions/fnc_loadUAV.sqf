@@ -24,5 +24,6 @@ private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeOf _
 
 
 //===== ENUNCIATE BACK ON STATION
-[[side _uav, "HQ"],format["%1 is back on station in the AO", groupID (group _uav)]] remoteExec ["sideChat", 0];
+_ammoStatus = [_uav] call fatLurch_fnc_getPylonAmmo select 2;
+[[side _uav, "HQ"],format["%1 is back on station. %2", groupID (group _uav), _ammoStatus]] remoteExec ["sideChat", 0];
 
