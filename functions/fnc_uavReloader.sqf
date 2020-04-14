@@ -16,6 +16,8 @@ while {true} do {
 			//===== CALL LOADUAV
 			[UAVName, UAVType, UAVLoadout] call fatLurch_fnc_loadUAV;
 			
+			sleep 2;
+			
 			//===== RESET VARIABLES
 			UAVName = nil;
 			UAVType = nil;
@@ -29,5 +31,5 @@ while {true} do {
 			publicVariable "UAVTime";
 		};
 	};
-	sleep 1;
+	sleep 10;
 };
